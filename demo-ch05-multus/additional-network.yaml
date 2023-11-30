@@ -1,0 +1,19 @@
+# DO NOT get network.config. The one to be updated is network.operator!!
+# oc get network.operator/cluster -o yaml > network.operator.yaml
+# update the file with this content
+# oc replace network.operator/cluster -f network.operator.yaml
+spec:
+  additionalNetworks: 
+  - name: newnetwork    # name referenced by pod annotation later
+    namespace: default
+    rawCNIConfig: |- 
+      {
+        "cniVersion": "0.3.1",
+        "name": "newnetwork",
+        "type": "host-device",
+        "device": "ens4" ,
+        "ipam": {
+           "type": "static"
+        }
+      }
+    type: Raw

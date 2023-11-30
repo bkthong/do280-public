@@ -1,0 +1,13 @@
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: qa-quota
+spec:
+  quota:
+    hard:
+      count/pods: "3"
+  selector:
+    annotations: null
+    labels:
+      matchLabels:
+        env: qa

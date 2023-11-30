@@ -1,0 +1,10 @@
+
+===================================
+This text is from NOTES.txt
+===================================
+
+**Application has been deployed**
+
+   $ oc get route 
+
+to get the url for the application

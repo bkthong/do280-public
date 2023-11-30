@@ -1,0 +1,10 @@
+# It is good to have a deny-all policy as a catch all
+# as any pods that are not selected by network policies 
+# will not be restricted in terms of network traffic
+#
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-deny
+spec:
+  podSelector: {}

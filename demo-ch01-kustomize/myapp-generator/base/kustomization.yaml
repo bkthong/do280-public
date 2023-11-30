@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: hrdb
+  version: "1.0"
+commonAnnotations:
+  supportContact: support@example.com
+secretGenerator:
+- name: db-credentials
+  literals:
+  - MYSQL_USER=rachel
+  - MYSQL_PASSWORD=mypa55
+generatorOptions:
+#  disableNameSuffixHash: true
+resources:
+- mydb.yaml
+- mydb-service.yaml

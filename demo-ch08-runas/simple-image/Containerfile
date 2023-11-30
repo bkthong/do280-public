@@ -1,0 +1,6 @@
+FROM registry.access.redhat.com/ubi8/ubi:latest
+
+COPY myscript.sh  /usr/local/bin/
+USER 1001
+CMD ["myscript.sh"]
+

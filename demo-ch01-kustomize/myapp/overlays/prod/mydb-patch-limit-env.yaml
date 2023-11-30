@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydb
+spec:
+  template:
+    spec:
+      containers:
+      - name: mysql-56-rhel7
+        env:
+        - name: MYSQL_DATABASE
+          value: crm_prod
+        resources: 
+          limits:
+            memory: 1G

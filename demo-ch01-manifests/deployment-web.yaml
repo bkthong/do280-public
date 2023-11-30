@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"kind":"Deployment","apiVersion":"apps/v1","metadata":{"name":"web","creationTimestamp":null,"labels":{"app":"web"}},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"web"}},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"web"}},"spec":{"containers":[{"name":"webserver-hello-ocp","image":"quay.io/bkthong/webserver-hello-ocp:1.1","resources":{}}]}},"strategy":{}},"status":{}}
+  creationTimestamp: null
+  labels:
+    app: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: quay.io/bkthong/webserver-hello-ocp:1.2
+        name: webserver-hello-ocp
+        resources: {}
+status: {}

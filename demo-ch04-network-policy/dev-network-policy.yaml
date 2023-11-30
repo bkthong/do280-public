@@ -1,0 +1,50 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: dev-network-policy
+spec:
+  podselector: {}          # applies to all pods in this project
+  ingress:
+#   *************************************************************************
+#   To allow routes and cluster monitoring to to work. 
+#
+#   Note however that Network policy does not apply to the host network namespace. 
+#   Pods with host networking enabled are unaffected by network policy rules.
+#  
+#  Our classroom openshift router typiically usings HostNetwork endpoint
+#  publishing strategy. Hence even withoht the following rule, routes will still 
+#  work in class.
+#
+#  To check the endpoint publishing strategy:
+#     $  oc describe ingresscontroller/default -n openshift-ingress-operator
+
+#  --------------------------------------------------------------------------- 
+#   LABELLING the deault namespace notes below seems to be no longer needed 
+#   as the latest documentations do not mention this anymore. 
+#  --------------------------------------------------------------------------- 
+#
+#   *************************************************************************
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          network.openshift.io/policy-group: ingress
+
+    - namespaceSelector:
+        matchLabels:
+          network.openshift.io/policy-group: monitoring
+
+#    - namespaceSelector:   # Multiple conditions in an single array element are ANDed
+#        matchLabels:       # ie, all conditions MUST be met
+#          env: qa
+#      podSelector: {}      # Applies to all pods coming from projects with env=qa label
+
+#    - namespaceSelector:
+#        matchLabels:
+#          env: qa
+#    - namespaceSelector: {}
+#      podSelector:          #Since an array of conditions are supplied, OR is used. Ingress 
+#         matchLabels:       #allowed from project with label qa. ANY pod from any project with
+#           app: myweb       #app=myweb label also will be allowed ingress
+
+
+

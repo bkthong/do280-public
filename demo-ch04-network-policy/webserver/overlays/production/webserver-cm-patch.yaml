@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  index.html: |
+    production version
+    hello
+kind: ConfigMap
+metadata:
+  name: webserver

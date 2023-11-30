@@ -1,0 +1,42 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: sample
+parameters:
+- description: Base name of resources
+  name: NAME
+  required: true
+  value: web
+- description: Owner label
+  name: OWNER
+  required: true
+  value: john
+objects:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    name: ${NAME}-v1
+    labels:
+      app: abc
+      owner: ${OWNER}
+  spec:
+    containers:
+    - name: ${NAME}
+      image: quay.io/bkthong/webserver-hello-ocp:1.1
+      ports:
+      - containerPort: 8080
+
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    name: ${NAME}-v2
+    labels:
+      app: abc
+      owner: ${OWNER}
+  spec:
+    containers:
+    - name: ${NAME}
+      image: quay.io/bkthong/webserver-hello-ocp:1.2
+      ports:
+      - containerPort: 8080
+

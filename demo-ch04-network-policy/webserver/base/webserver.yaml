@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myweb
+  name: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myweb
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: myweb
+    spec:
+      containers:
+      - image: quay.io/bkthong/webserver-hello-ocp:1.1
+        imagePullPolicy: Always
+        name: webserver
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - name: webvol
+          mountPath: /var/www/html
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap: 
+          name: webserver
+          defaultmode: 420
+        name: webvol
